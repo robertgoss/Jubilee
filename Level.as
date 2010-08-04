@@ -19,13 +19,11 @@ package
 			add(c);
 			add(d);
 			
-			var marriage: Marriage = new Marriage();
+			var marriage: Marriage = new Marriage(a, b);
 			
 			a.marriage = marriage;
 			b.marriage = marriage;
 			
-			marriage.husband = a;
-			marriage.wife = b;
 			marriage.children.push(c, d);
 			
 			add(marriage);
