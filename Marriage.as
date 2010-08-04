@@ -17,7 +17,7 @@ package
 		
 		public var nextBaby: Number = 4;
 		
-		[Embed(source = 'assets/pop.mp3')] 
+		[Embed(source = 'assets/baby.mp3')] 
 		private const POP:Class;
 		public var pop:Sfx = new Sfx(POP);
 		
