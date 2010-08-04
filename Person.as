@@ -160,7 +160,7 @@ package
 				change_direction()
 			}
 
-			if (age > 30 && int(Math.random() * 50) == 1)
+			if (age > 50 && int(Math.random() * 100) == 1)
 			{
 				die();
 			}
