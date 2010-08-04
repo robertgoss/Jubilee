@@ -18,8 +18,8 @@ package
 		public static const MALE_UNSELECTED:uint = 0x0000FF;
 		public static const FEMALE_UNSELECTED:uint = 0xFF00FF;
 		
-		public const SPEED:Number = 0.4;
-		public const SIZE:Number = 15;
+		public const SPEED:Number = 0.2;
+		public const SIZE:Number = 10;
 		
 		public var marriage: Marriage = null;
 		

@@ -13,6 +13,8 @@ package
 		public var wife: Person = null;
 		public var children: Vector.<Person> = new Vector.<Person>();
 		
+		public var sameSex:Boolean; 
+		
 		public var age: Number = 0;
 		
 		public var nextBaby: Number = 4;
@@ -23,8 +25,23 @@ package
 		
 		public function Marriage (a: Person, b: Person)
 		{
-			husband = a;
-			wife = b;
+			if (a.gender == "male")
+			{
+				husband = a;
+				wife = b;
+			}else
+			{
+				wife = a;
+				husband = b;
+			}
+			if (a.gender == b.gender)
+			{
+				sameSex = true;
+			}else
+			{
+				sameSex = false;
+			}
+			
 			husband.marriage = this;
 			wife.marriage = this;
 			
@@ -40,16 +57,18 @@ package
 			
 			if (nextBaby < 0) {
 				nextBaby = 1.0 + Math.random() * 1.5;
+				if (sameSex == false)
+				{
+					var child: Person = new Person();
 				
-				var child: Person = new Person();
+					child.x = wife.x + Math.random() * 16 - 8;
+					child.y = wife.y + Math.random() * 16 - 8;
 				
-				child.x = wife.x + Math.random() * 16 - 8;
-				child.y = wife.y + Math.random() * 16 - 8;
+					children.push(child);
 				
-				children.push(child);
-				
-				FP.world.add(child);
-				pop.play()
+					FP.world.add(child);
+					pop.play()
+				}
 			}
 			
 		}
