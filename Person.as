@@ -5,6 +5,8 @@ package
 	import net.flashpunk.masks.*;
 	import net.flashpunk.utils.*;
 	
+	import flash.display.*;
+	
 	public class Person extends Entity
 	{
 		public static const MALE: String = "male";
@@ -38,9 +40,16 @@ package
 			gender = Math.random() < 0.5 ? MALE : FEMALE;
 			x = Math.random() * 400+20;
 			y = Math.random() * 400+20;
-			setHitbox(-15, -15, 30, 30);
+			setHitbox(-SIZE, -SIZE, SIZE*2, SIZE*2);
 			
-			graphic = Image.createRect(2*SIZE, 2*SIZE, gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
+			var bitmap: BitmapData = new BitmapData(SIZE*2, SIZE*2, false, 0xFF000000);
+			FP.rect.x = 2;
+			FP.rect.y = 2;
+			FP.rect.width = SIZE*2 - 4;
+			FP.rect.height = SIZE*2 - 4;
+			bitmap.fillRect(FP.rect, gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
+			
+			graphic = new Stamp(bitmap);
 			graphic.x = -SIZE;
 			graphic.y = -SIZE;
 			
@@ -73,7 +82,7 @@ package
 		public override function update (): void
 		{
 			//Timing
-			age += 0.01;
+			age += 0.002;
 			change_direction_time -= 0.01;
 			if (change_direction_time < 0)
 			{
