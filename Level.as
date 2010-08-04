@@ -69,7 +69,7 @@ package
 			
 			aweful_control_code();
 			
-			time += 0.002;
+			time += 0.004;
 			
 			yearText.text = "" + int(1994 + time);
 		}
@@ -176,7 +176,9 @@ package
 			}
 			
 			//Draw piety bar
-			Draw.rect(FP.camera.x+570, ((1-piety)*400)+ FP.camera.y+40, 30, piety*400,0xF5B800);
+			Draw.rect(FP.camera.x + 570, ((1 - piety) * 400) + FP.camera.y + 40, 30, piety * 400, 0xF5B800);
+			yearText.x = FP.camera.x + 4;
+			yearText.y = FP.camera.y + 4;
 		}
 
 	}

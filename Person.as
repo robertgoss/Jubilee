@@ -27,7 +27,7 @@ package
 		public var parent_marriage:Marriage;
 		
 		public var gender: String = MALE;
-		public var age: Number = 0;
+		public var age: Number = 30;
 		
 		public var alive: Boolean = true;
 		
@@ -56,11 +56,14 @@ package
 			FP.rect.y = 2;
 			FP.rect.width = SIZE*2 - 4;
 			FP.rect.height = SIZE*2 - 4;
-			bitmap.fillRect(FP.rect, gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
+			bitmap.fillRect(FP.rect, 0xFFFFFFFF);
 			
 			graphic = new Image(bitmap);
 			graphic.x = -SIZE;
 			graphic.y = -SIZE;
+			
+			var image:Image = graphic as Image;
+			image.color = (gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
 			
 			change_direction_time = 2;
 			change_direction()
@@ -68,12 +71,14 @@ package
 		
 		public function select():void
 		{
-			bitmap.fillRect(FP.rect, gender == MALE ? MALE_SELECTED : FEMALE_SELECTED);
+			var image:Image = graphic as Image;
+			image.color = (gender == MALE ? MALE_SELECTED : FEMALE_SELECTED);
 		}
 		
 		public function unselect():void
 		{
-			bitmap.fillRect(FP.rect, gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
+			var image:Image = graphic as Image;
+			image.color = (gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
 		}
 		
 		public function change_direction():void
@@ -145,16 +150,15 @@ package
 		public override function update (): void
 		{
 			//Timing
-			age += 0.002;
+			age += 0.004;
 			change_direction_time -= 0.01;
 			if (change_direction_time < 0)
 			{
 				change_direction_time = 1 + Math.random();
 				change_direction()
 			}
-			
 
-			if (age > 70 && (Math.random() * 7) == 1)
+			if (age > 30 && int(Math.random() * 50) == 1)
 			{
 				die();
 			}
@@ -174,11 +178,12 @@ package
 			if (marriage)
 			{
 				marriage.end_marriage();
-				bitmap.fillRect(FP.rect, DEAD);
-				type = "Corpse";
-				var image:Image = graphic as Image;
-				image.alpha = 0.4;
 			}
+			var image:Image = graphic as Image;
+			image.color = DEAD;
+			layer = -3;
+			type = "Corpse";
+			image.alpha = 0.4;
 		}
 	}
 }
