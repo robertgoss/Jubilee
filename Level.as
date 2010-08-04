@@ -21,9 +21,6 @@ package
 			
 			var marriage: Marriage = new Marriage(a, b);
 			
-			a.marriage = marriage;
-			b.marriage = marriage;
-			
 			marriage.children.push(c, d);
 			
 			add(marriage);

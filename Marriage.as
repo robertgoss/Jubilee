@@ -19,6 +19,8 @@ package
 		{
 			husband = a;
 			wife = b;
+			husband.marriage = this;
+			wife.marriage = this;
 		}
 		
 		public override function update (): void
