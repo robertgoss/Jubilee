@@ -58,10 +58,13 @@ package
 		
 		public function marry(a:Person, b:Person):void
 		{
+			if (a == b)
+			{
+				return;
+			}
 			if (a.marriage || b.marriage)
 			{
 				//They are already married bad karma
-				return;
 			}
 			var marriage:Marriage = new Marriage(a, b);
 			add(marriage);
