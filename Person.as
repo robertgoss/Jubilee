@@ -88,8 +88,20 @@ package
 				direction_x = direction_x + diff_x;
 				direction_y = direction_y + diff_y;
 				var direction_length:Number = Math.sqrt(direction_x * direction_x + direction_y * direction_y);
-				direction_x = direction_x / direction_length;
-				direction_y = direction_y / direction_length;
+				if (direction_length < 0.03)
+				{
+					direction_x = 1;
+					direction_y = 0;
+				}else
+				{
+					direction_x = direction_x / direction_length;
+					direction_y = direction_y / direction_length;
+				}
+			}
+			if (isNaN(direction_x) || isNaN(direction_y))
+			{
+				direction_x = 1;
+				direction_y = 0;
 			}
 		}
 		
@@ -123,6 +135,8 @@ package
 			//Movement
 			var new_x:Number = x + (direction_x * SPEED);
 			var new_y:Number = y + (direction_y * SPEED);
+			
+			//avoid_walls(new_x,new_y);
 			
 			x = new_x;
 			y = new_y;

@@ -18,10 +18,15 @@ package
 		
 		public var nextNewbie: Number = 0.5;
 		
+		public var pan:Boolean=false;
+		
 		public var player:Player;
 		
 		public var selected:Person = null;
 		public var hover:Person = null;
+		
+		public var offset_x:Number = 0;
+		public var offset_y:Number = 0;
 		
 		public function Level()
 		{
@@ -95,6 +100,7 @@ package
 						hover.select()
 					}
 				}
+				
 			}
 			if (Input.mouseReleased)
 			{
@@ -113,6 +119,29 @@ package
 					hover.unselect();
 					hover = null;
 				}
+			}
+			//Panning
+			if (mouseX < 10-offset_x && offset_x > -400)
+			{
+				offset_x = offset_x - 1;
+				FP.screen.x = offset_x;
+			}
+			
+			if (mouseX > 630-offset_x && offset_x < 400)
+			{
+				offset_x = offset_x + 1;
+				FP.screen.x = offset_x;
+			}
+			if (mouseY < 10-offset_y offset_y > -400)
+			{
+				offset_y = offset_y - 1;
+				FP.screen.y = offset_y;
+			}
+			
+			if (mouseY > 470-offset_y  offset_y < 400)
+			{
+				offset_y = offset_y + 1;
+				FP.screen.y = offset_y;
 			}
 			
 			time += 0.002;
