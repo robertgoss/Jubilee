@@ -106,6 +106,13 @@ package
 		
 		public function aweful_control_code():void
 		{
+			var last_hover:Person = hover;
+			hover = collidePoint("Person", mouseX, mouseY) as Person;
+			if (hover)
+			{
+				hover.hover_over();
+			}
+			
 			if (Input.mousePressed)
 			{
 				selected = collidePoint("Person", mouseX, mouseY) as Person;
@@ -114,50 +121,17 @@ package
 					selected.select();
 				}
 			}
-			if (Input.mouseDown)
-			{
-				if (hover)
-				{
-					hover.unselect()
-					hover = null;
-				}
-				hover = collidePoint("Person", mouseX, mouseY) as Person;
-				if (hover)
-				{
-					if (hover == selected)
-					{
-						hover = null;
-					}else
-					{
-						hover.select()
-					}
-				}
-				
-			}
+			
 			if (Input.mouseReleased)
 			{
-				var other:Person = collidePoint("Person", mouseX, mouseY) as Person;
-				if (other && selected)
-				{
-					marry(other, selected);
-					if (piety < 0.05)
-					{
-						piety = 0.05;
-					}
-					if (piety > 1)
-					{
-						piety = 1;
-					}
-				}
 				if (selected)
 				{
+					if (hover)
+					{
+						marry(selected, hover)
+					}
 					selected.unselect();
 					selected = null;
-				}
-				if (hover)
-				{
-					hover.unselect();
-					hover = null;
 				}
 			}
 			
@@ -222,7 +196,16 @@ package
 			}
 			
 			//Draw piety bar
-			Draw.rect(FP.camera.x + 570, ((1 - piety) * 400) + FP.camera.y + 40, 30, piety * 400, 0xF5B800);
+			if (piety < 0)
+			{
+				piety = 0;
+			}
+			if (piety > 1)
+			{
+				piety = 1;
+			}
+			Draw.rect(FP.camera.x + 565, FP.camera.y + 30, 40, 410, 0x000000);
+			Draw.rect(FP.camera.x + 570, ((1 - piety) * 400) + FP.camera.y + 35, 30, piety * 400, 0xF5B800);
 		}
 
 	}

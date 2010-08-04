@@ -39,6 +39,8 @@ package
 		public var change_direction_time: Number;
 		
 		public var bitmap: BitmapData;
+		public var selected:Boolean=false;
+		public var over:Boolean=false;
 		
 		public function Person(parent:Marriage=null)
 		{
@@ -73,14 +75,17 @@ package
 		
 		public function select():void
 		{
-			var image:Image = graphic as Image;
-			image.color = (gender == MALE ? MALE_SELECTED : FEMALE_SELECTED);
+			selected = true;
 		}
 		
 		public function unselect():void
 		{
-			var image:Image = graphic as Image;
-			image.color = (gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
+			selected = false;
+		}
+		
+		public function hover_over():void
+		{
+			over = true;
 		}
 		
 		public function change_direction():void
@@ -151,6 +156,22 @@ package
 		
 		public override function update (): void
 		{
+			//Selection
+			var image:Image = graphic as Image;
+			image.color = (gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
+			if (selected)
+			{
+				image.color = (gender == MALE ? MALE_SELECTED : FEMALE_SELECTED);
+			}
+			if (over)
+			{
+				image.color = (gender == MALE ? MALE_SELECTED : FEMALE_SELECTED);
+				over = false;
+			}
+			if (alive == false)
+			{
+				image.color = DEAD;
+			}
 			//Timing
 			age += 0.004;
 			change_direction_time -= 0.01;
@@ -185,10 +206,10 @@ package
 				marriage.end_marriage();
 			}
 			var image:Image = graphic as Image;
-			image.color = DEAD;
+			image.alpha = 0.4;
 			layer = -3;
 			type = "Corpse";
-			image.alpha = 0.4;
+			
 			alive = false;
 		}
 	}

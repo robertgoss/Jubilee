@@ -91,6 +91,12 @@ package
 					children.push(child);
 				
 					FP.world.add(child);
+					var world:Level = FP.world as Level;
+					world.piety += 0.02
+					if (world.piety > 1)
+					{
+						world.piety = 1;
+					}
 					FP.choose(baby).play();
 				}
 			}
