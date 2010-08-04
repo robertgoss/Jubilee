@@ -1,4 +1,4 @@
-OUTPUT := game.swf
+OUTPUT := jubilee.swf
 
 ifdef DEBUG
 DEBUG_FLAG := true
