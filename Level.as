@@ -71,7 +71,6 @@ package
 		{
 			if (a == b)
 			{
-				piety = piety - 0.05;
 				return;
 			}
 			if (a.alive == false || b.alive == false)
@@ -82,6 +81,11 @@ package
 			if (a.marriage)
 			{
 				piety = piety - 0.2;
+				if (a.marriage.other(a) == b)
+				{
+					a.marriage.end_marriage();
+					return;
+				}
 				a.marriage.end_marriage();
 			}
 			if (b.marriage)
