@@ -39,7 +39,11 @@ package
 			nextBaby -= 0.002;
 			
 			if (nextBaby < 0) {
-				nextBaby = 1.0 + Math.random() * 1.5;
+				if (Math.random() < 0.5) {
+					nextBaby = 1.0 + Math.random() * 1.5;
+				} else {
+					nextBaby = 100000;
+				}
 				
 				var child: Person = new Person();
 				
