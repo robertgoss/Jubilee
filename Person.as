@@ -75,6 +75,22 @@ package
 			var angle:Number = Math.random() * 2 * Math.PI;
 			direction_x = Math.cos(angle);
 			direction_y = Math.sin(angle);
+			
+			if (marriage)
+			{
+				var other:Person = marriage.other(this);
+				trace(typeof(x-other.x))
+				var diff_x:Number = other.x-x;
+				var diff_y:Number = other.y-y;
+				var diff_length:Number = Math.sqrt(diff_x * diff_x + diff_y * diff_y)*2;
+				diff_x = diff_x / diff_length;
+				diff_y = diff_y / diff_length;
+				direction_x = direction_x + diff_x;
+				direction_y = direction_y + diff_y;
+				var direction_length:Number = Math.sqrt(direction_x * direction_x + direction_y * direction_y);
+				direction_x = direction_x / direction_length;
+				direction_y = direction_y / direction_length;
+			}
 		}
 		
 		public function avoid_walls(new_x:Number,new_y:Number):Boolean

@@ -73,6 +73,15 @@ package
 			
 		}
 		
+		public function other(a:Person):Person
+		{
+			if (husband == a)
+			{
+				return wife;
+			}
+			return husband;
+		}
+		
 		public override function render (): void
 		{
 			Draw.linePlus(husband.x, husband.y, wife.x, wife.y, 0xFF0000);
