@@ -12,6 +12,9 @@ package
 		[Embed(source="assets/church_overview_2.png")]
 		public static var bgGfx: Class;
 		
+		[Embed(source="assets/prayer_club.gif")]
+		public static var prayer: Class;
+		
 		public var yearText: Text;
 		
 		public var time: Number = 0;
@@ -32,6 +35,7 @@ package
 		public static const MAX_PAN_SPEED: Number = 2;
 		
 		public var piety:Number = 0.5;
+		public var pietySprite:Image;
 		
 		public function Level()
 		{
@@ -39,6 +43,12 @@ package
 			
 			yearText = new Text("1994", 4, 4);
 			yearText.scrollX = yearText.scrollY = 0;
+			
+			pietySprite = new Image(prayer);
+			pietySprite.scrollX = pietySprite.scrollY = 0;
+			pietySprite.scale = 0.4;
+			
+			add(new Entity(570, 440, pietySprite));
 			
 			add(new Entity(0, 0, yearText));
 			
@@ -60,13 +70,24 @@ package
 		{
 			if (a == b)
 			{
+				piety = piety - 0.05;
 				return;
 			}
-			if (a.marriage || b.marriage)
+			if (a.alive == false || b.alive == false)
 			{
-				//They are already married bad karma
+				piety = piety - 0.4;
+				return;
+			}
+			if (a.marriage)
+			{
+				a.marriage.end_marriage();
+			}
+			if (b.marriage)
+			{
+				b.marriage.end_marriage();
 			}
 			var marriage:Marriage = new Marriage(a, b);
+			piety = piety + 0.01*marriage.piety;
 			add(marriage);
 		}
 		
@@ -117,6 +138,14 @@ package
 				if (other && selected)
 				{
 					marry(other, selected);
+					if (piety < 0.05)
+					{
+						piety = 0.05;
+					}
+					if (piety > 1)
+					{
+						piety = 1;
+					}
 				}
 				if (selected)
 				{
@@ -192,8 +221,6 @@ package
 			
 			//Draw piety bar
 			Draw.rect(FP.camera.x + 570, ((1 - piety) * 400) + FP.camera.y + 40, 30, piety * 400, 0xF5B800);
-			yearText.x = FP.camera.x + 4;
-			yearText.y = FP.camera.y + 4;
 		}
 
 	}

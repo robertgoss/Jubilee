@@ -19,6 +19,8 @@ package
 		
 		public var nextBaby: Number = 4;
 		
+		public var piety:Number = 5;
+		
 		[Embed(source = 'assets/baby.mp3')] 
 		private const POP:Class;
 		public var pop:Sfx = new Sfx(POP);
@@ -41,6 +43,7 @@ package
 			if (a.gender == b.gender)
 			{
 				sameSex = true;
+				piety = -35;
 			}else
 			{
 				sameSex = false;
@@ -110,7 +113,10 @@ package
 			var midy: Number = (husband.y + wife.y) * 0.5;
 			
 			for each (var child: Person in children) {
-				Draw.linePlus(midx, midy, child.x, child.y, 0x000000);
+				if (child.alive)
+				{
+					Draw.linePlus(midx, midy, child.x, child.y, 0x000000);
+				}
 			}
 		}
 		

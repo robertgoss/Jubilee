@@ -160,7 +160,7 @@ package
 				change_direction()
 			}
 
-			if (age > 50 && int(Math.random() * 100) == 1)
+			if (age > 50 && int(Math.random() * 200) == 1)
 			{
 				die();
 			}
@@ -169,7 +169,10 @@ package
 			var new_x:Number = x + (direction_x * SPEED);
 			var new_y:Number = y + (direction_y * SPEED);
 			
-			avoid_walls(new_x,new_y);
+			if (alive)
+			{
+				avoid_walls(new_x, new_y);
+			}
 			
 			x = new_x;
 			y = new_y;
@@ -186,6 +189,7 @@ package
 			layer = -3;
 			type = "Corpse";
 			image.alpha = 0.4;
+			alive = false;
 		}
 	}
 }
