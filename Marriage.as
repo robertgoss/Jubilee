@@ -23,6 +23,10 @@ package
 		private const POP:Class;
 		public var pop:Sfx = new Sfx(POP);
 		
+		[Embed(source = 'assets/wedding.mp3')] 
+		private const WEDDING:Class;
+		public var wedding:Sfx = new Sfx(WEDDING);
+		
 		public function Marriage (a: Person, b: Person)
 		{
 			if (a.gender == "male")
@@ -48,6 +52,8 @@ package
 			layer = -1;
 			
 			nextBaby = 2 + Math.random() * 2;
+			
+			wedding.play();
 		}
 		
 		public override function update (): void
