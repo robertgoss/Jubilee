@@ -80,10 +80,12 @@ package
 			}
 			if (a.marriage)
 			{
+				piety = piety - 0.2;
 				a.marriage.end_marriage();
 			}
 			if (b.marriage)
 			{
+				piety = piety - 0.2;
 				b.marriage.end_marriage();
 			}
 			var marriage:Marriage = new Marriage(a, b);
