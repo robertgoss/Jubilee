@@ -58,6 +58,11 @@ package
 		
 		public override function update (): void
 		{
+			if (husband == null)
+			{
+				return
+			}
+			
 			age += 0.002;
 			nextBaby -= 0.002;
 			
@@ -95,6 +100,10 @@ package
 		
 		public override function render (): void
 		{
+			if (husband == null)
+			{
+				return
+			}
 			Draw.linePlus(husband.x, husband.y, wife.x, wife.y, 0x800000, 1.0, 3.0);
 			
 			var midx: Number = (husband.x + wife.x) * 0.5;
@@ -103,6 +112,14 @@ package
 			for each (var child: Person in children) {
 				Draw.linePlus(midx, midy, child.x, child.y, 0x000000);
 			}
+		}
+		
+		public function end_marriage():void
+		{
+			husband.marriage = null;
+			wife.marriage = null;
+			husband = null;
+			wife = null;
 		}
 	}
 }

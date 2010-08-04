@@ -18,10 +18,13 @@ package
 		public static const MALE_UNSELECTED:uint = 0x0000FF;
 		public static const FEMALE_UNSELECTED:uint = 0xFF00FF;
 		
+		public static const DEAD:uint = 0xEEEEEE;
+		
 		public const SPEED:Number = 0.2;
 		public const SIZE:Number = 10;
 		
 		public var marriage: Marriage = null;
+		public var parent_marriage:Marriage;
 		
 		public var gender: String = MALE;
 		public var age: Number = 0;
@@ -37,8 +40,10 @@ package
 		
 		public var bitmap: BitmapData;
 		
-		public function Person()
+		public function Person(parent:Marriage=null)
 		{
+			parent_marriage = parent;
+			
 			gender = Math.random() < 0.5 ? MALE : FEMALE;
 			x = Math.random() * 400+20;
 			y = Math.random() * 400+20;
@@ -53,7 +58,7 @@ package
 			FP.rect.height = SIZE*2 - 4;
 			bitmap.fillRect(FP.rect, gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
 			
-			graphic = new Stamp(bitmap);
+			graphic = new Image(bitmap);
 			graphic.x = -SIZE;
 			graphic.y = -SIZE;
 			
@@ -79,14 +84,30 @@ package
 			direction_x = Math.cos(angle);
 			direction_y = Math.sin(angle);
 			
-			if (marriage)
+			if (marriage || parent_marriage)
 			{
-				var other:Person = marriage.other(this);
-				var diff_x:Number = other.x-x;
-				var diff_y:Number = other.y-y;
-				var diff_length:Number = Math.sqrt(diff_x * diff_x + diff_y * diff_y)*0.9;
-				diff_x = diff_x / diff_length;
-				diff_y = diff_y / diff_length;
+				var target_x:Number = 0;
+				var target_y:Number = 0;
+				var strength:Number = 1;
+				if (marriage)
+				{
+					target_x = marriage.other(this).x;
+					target_y = marriage.other(this).y;
+					strength = 1.2
+				}else {
+					target_x = (parent_marriage.husband.x + parent_marriage.wife.x) * 0.5;
+					target_y = (parent_marriage.husband.y + parent_marriage.wife.y) * 0.5;
+					strength = 0.7
+				}
+				var diff_x:Number = target_x-x;
+				var diff_y:Number = target_y-y;
+				var diff_length:Number = Math.sqrt(diff_x * diff_x + diff_y * diff_y);
+				if (diff_length < 15) //If too close force apart.
+				{
+					diff_length = -diff_length;
+				}
+				diff_x = strength* diff_x / diff_length;
+				diff_y = strength* diff_y / diff_length;
 				direction_x = direction_x + diff_x;
 				direction_y = direction_y + diff_y;
 				var direction_length:Number = Math.sqrt(direction_x * direction_x + direction_y * direction_y);
@@ -134,6 +155,12 @@ package
 				change_direction()
 			}
 			
+
+			if (age > 70 && (Math.random() * 7) == 1)
+			{
+				die();
+			}
+			
 			//Movement
 			var new_x:Number = x + (direction_x * SPEED);
 			var new_y:Number = y + (direction_y * SPEED);
@@ -142,6 +169,18 @@ package
 			
 			x = new_x;
 			y = new_y;
+		}
+		
+		public function die():void 
+		{
+			if (marriage)
+			{
+				marriage.end_marriage();
+				bitmap.fillRect(FP.rect, DEAD);
+				type = "Corpse";
+				var image:Image = graphic as Image;
+				image.alpha = 0.4;
+			}
 		}
 	}
 }

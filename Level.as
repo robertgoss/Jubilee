@@ -31,6 +31,8 @@ package
 		public static const PAN_AREA: Number = 30;
 		public static const MAX_PAN_SPEED: Number = 2;
 		
+		public var piety:Number = 0.5;
+		
 		public function Level()
 		{
 			add(new Entity(-80, -60, new Stamp(bgGfx)));
@@ -184,6 +186,9 @@ package
 					Draw.linePlus(mouseX, mouseY, selected.x, selected.y, 0x000000);
 				}
 			}
+			
+			//Draw piety bar
+			Draw.rect(FP.camera.x+570, ((1-piety)*400)+ FP.camera.y+40, 30, piety*400,0xF5B800);
 		}
 
 	}
