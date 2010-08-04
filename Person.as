@@ -35,14 +35,18 @@ package
 		public var direction_y: Number;
 		public var change_direction_time: Number;
 		
+		public var bitmap: BitmapData;
+		
 		public function Person()
 		{
 			gender = Math.random() < 0.5 ? MALE : FEMALE;
 			x = Math.random() * 400+20;
 			y = Math.random() * 400+20;
-			setHitbox(SIZE, SIZE, SIZE*2, SIZE*2);
 			
-			var bitmap: BitmapData = new BitmapData(SIZE*2, SIZE*2, false, 0xFF000000);
+			setHitbox(SIZE * 2, SIZE * 2,SIZE,SIZE);
+			type = "Person";
+			
+			bitmap = new BitmapData(SIZE*2, SIZE*2, false, 0xFF000000);
 			FP.rect.x = 2;
 			FP.rect.y = 2;
 			FP.rect.width = SIZE*2 - 4;
@@ -55,6 +59,16 @@ package
 			
 			change_direction_time = 2;
 			change_direction()
+		}
+		
+		public function select():void
+		{
+			bitmap.fillRect(FP.rect, gender == MALE ? MALE_SELECTED : FEMALE_SELECTED);
+		}
+		
+		public function unselect():void
+		{
+			bitmap.fillRect(FP.rect, gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
 		}
 		
 		public function change_direction():void

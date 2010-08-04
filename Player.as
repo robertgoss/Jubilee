@@ -8,14 +8,16 @@ package
 	import Person;
 	public class Player extends Entity
 	{
-		public var selected1:Person = null;
-		public var selected2:Person = null;
+		public var selected:Person = null;
 		
 		public function Player()
 		{
 			
 		}
 		
+		public function select(person:Person):void
+		{
+		}
 	}
 	
 }
