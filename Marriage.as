@@ -5,6 +5,8 @@ package
 	import net.flashpunk.masks.*;
 	import net.flashpunk.utils.*;
 	
+	import net.flashpunk.Sfx;
+	
 	public class Marriage extends Entity
 	{
 		public var husband: Person = null;
@@ -15,6 +17,10 @@ package
 		
 		public var nextBaby: Number = 4;
 		
+		[Embed(source = 'assets/pop.mp3')] 
+		private const POP:Class;
+		public var pop:Sfx = new Sfx(POP);
+		
 		public function Marriage (a: Person, b: Person)
 		{
 			husband = a;
@@ -22,6 +28,8 @@ package
 			husband.marriage = this;
 			wife.marriage = this;
 		}
+		
+		public var shoot:Sfx = new Sfx(SHOOT);
 		
 		public override function update (): void
 		{
@@ -39,6 +47,7 @@ package
 				children.push(child);
 				
 				FP.world.add(child);
+				pop.play()
 			}
 			
 		}
