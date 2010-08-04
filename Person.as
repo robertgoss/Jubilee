@@ -107,12 +107,12 @@ package
 		
 		public function avoid_walls(new_x:Number,new_y:Number):Boolean
 		{
-			if (new_x<SIZE || new_x>(640-SIZE))
+			if (new_x<SIZE-40 || new_x>(675-SIZE))
 			{
 				change_direction()
 				return false;
 			}
-			if (new_y<SIZE || new_y>(480-SIZE))
+			if (new_y<SIZE-23 || new_y>(500-SIZE))
 			{
 				change_direction()
 				return false;
@@ -136,7 +136,7 @@ package
 			var new_x:Number = x + (direction_x * SPEED);
 			var new_y:Number = y + (direction_y * SPEED);
 			
-			//avoid_walls(new_x,new_y);
+			avoid_walls(new_x,new_y);
 			
 			x = new_x;
 			y = new_y;
