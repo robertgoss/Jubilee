@@ -10,9 +10,17 @@ package
 		[Embed(source="assets/church_overview_1.png")]
 		public static var bgGfx: Class;
 		
+		public var yearText: Text;
+		
+		public var time: Number = 0;
+		
 		public function Level()
 		{
 			add(new Entity(-80, -60, new Stamp(bgGfx)));
+			
+			yearText = new Text("1994", 4, 4);
+			
+			add(new Entity(0, 0, yearText));
 			
 			var a: Person = new Person();
 			var b: Person = new Person();
@@ -26,13 +34,18 @@ package
 			
 			var marriage: Marriage = new Marriage(a, b);
 			
-			a.marriage = marriage;
-			b.marriage = marriage;
-			
 			marriage.children.push(c, d);
 			
 			add(marriage);
 		}
 		
+		public override function update (): void
+		{
+			super.update();
+			
+			time += 0.001;
+			
+			yearText.text = "" + int(1994 + time);
+		}
 	}
 }
