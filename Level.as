@@ -9,7 +9,7 @@ package
 	
 	public class Level extends World
 	{
-		[Embed(source="assets/church_overview_1.png")]
+		[Embed(source="assets/church_overview_2.png")]
 		public static var bgGfx: Class;
 		
 		public var yearText: Text;
@@ -18,10 +18,15 @@ package
 		
 		public var nextNewbie: Number = 0.5;
 		
+		public var pan:Boolean=false;
+		
 		public var player:Player;
 		
 		public var selected:Person = null;
 		public var hover:Person = null;
+		
+		public var offset_x:Number = 0;
+		public var offset_y:Number = 0;
 		
 		public function Level()
 		{
@@ -71,7 +76,7 @@ package
 		{
 			if (Input.mousePressed)
 			{
-				selected = collidePoint("Person", Input.mouseX, Input.mouseY) as Person;
+				selected = collidePoint("Person", mouseX, mouseY) as Person;
 				if (selected)
 				{
 					selected.select();
@@ -84,7 +89,7 @@ package
 					hover.unselect()
 					hover = null;
 				}
-				hover = collidePoint("Person", Input.mouseX, Input.mouseY) as Person;
+				hover = collidePoint("Person", mouseX, mouseY) as Person;
 				if (hover)
 				{
 					if (hover == selected)
@@ -95,10 +100,11 @@ package
 						hover.select()
 					}
 				}
+				
 			}
 			if (Input.mouseReleased)
 			{
-				var other:Person = collidePoint("Person", Input.mouseX, Input.mouseY) as Person;
+				var other:Person = collidePoint("Person", mouseX, mouseY) as Person;
 				if (other && selected)
 				{
 					marry(other, selected);
@@ -114,6 +120,25 @@ package
 					hover = null;
 				}
 			}
+			//Panning
+			if (Input.mouseX < 10 && FP.camera.x>-80)
+			{
+				FP.camera.x = FP.camera.x-1;
+			}
+			
+			if (Input.mouseX > 630 && FP.camera.x<80)
+			{
+				FP.camera.x = FP.camera.x+1;
+			}
+			if (Input.mouseY < 10  && FP.camera.y>-60)
+			{
+				FP.camera.y = FP.camera.y-1;
+			}
+			
+			if (Input.mouseY > 470 && FP.camera.y<60)
+			{
+				FP.camera.y = FP.camera.y+1;
+			}
 			
 			time += 0.002;
 			
@@ -128,15 +153,8 @@ package
 				
 				person.age = Math.random()*40 + 18;
 				
-				if (Math.random() < 0.5) {
-					var dirY: int = (Math.random() < 0.5) ? -1 : 1;
-					person.y = 240 - dirY * (240 + person.SIZE);
-					person.direction_y = dirY;
-				} else {
-					var dirX: int = (Math.random() < 0.5) ? -1 : 1;
-					person.x = 320 - dirX * (320 + person.SIZE);
-					person.direction_x = dirX;
-				}
+				person.x = 280 + Math.random() * 120 ;
+				person.y = 455 + Math.random() * 30;
 				
 				add(person);
 			}
@@ -151,7 +169,7 @@ package
 				{
 					Draw.linePlus(hover.x, hover.y, selected.x, selected.y, 0x000000);
 				}else {
-					Draw.linePlus(Input.mouseX, Input.mouseY, selected.x, selected.y, 0x000000);
+					Draw.linePlus(mouseX, mouseY, selected.x, selected.y, 0x000000);
 				}
 			}
 		}
