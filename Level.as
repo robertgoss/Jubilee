@@ -192,8 +192,6 @@ package
 			
 			//Draw piety bar
 			Draw.rect(FP.camera.x + 570, ((1 - piety) * 400) + FP.camera.y + 40, 30, piety * 400, 0xF5B800);
-			yearText.x = FP.camera.x + 4;
-			yearText.y = FP.camera.y + 4;
 		}
 
 	}

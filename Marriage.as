@@ -20,8 +20,13 @@ package
 		public var nextBaby: Number = 4;
 		
 		[Embed(source = 'assets/baby.mp3')] 
-		private const POP:Class;
-		public var pop:Sfx = new Sfx(POP);
+		private const BABY1:Class;
+		[Embed(source = 'assets/baby2.mp3')] 
+		private const BABY2:Class;
+		[Embed(source = 'assets/baby3.mp3')] 
+		private const BABY3:Class;
+		
+		public var baby: Array = [new Sfx(BABY1), new Sfx(BABY2), new Sfx(BABY3)];
 		
 		[Embed(source = 'assets/wedding.mp3')] 
 		private const WEDDING:Class;
@@ -83,7 +88,7 @@ package
 					children.push(child);
 				
 					FP.world.add(child);
-					pop.play()
+					FP.choose(baby).play();
 				}
 			}
 			
