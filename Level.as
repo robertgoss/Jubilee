@@ -7,8 +7,13 @@ package
 	
 	public class Level extends World
 	{
+		[Embed(source="assets/church_overview_1.png")]
+		public static var bgGfx: Class;
+		
 		public function Level()
 		{
+			add(new Entity(-80, -60, new Stamp(bgGfx)));
+			
 			var a: Person = new Person();
 			var b: Person = new Person();
 			var c: Person = new Person();
