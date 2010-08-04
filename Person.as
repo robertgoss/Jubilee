@@ -18,6 +18,8 @@ package
 		public static const MALE_UNSELECTED:uint = 0x0000FF;
 		public static const FEMALE_UNSELECTED:uint = 0xFF00FF;
 		
+		public static const DEAD:uint = 0xEEEEEE;
+		
 		public const SPEED:Number = 0.2;
 		public const SIZE:Number = 10;
 		
@@ -56,7 +58,7 @@ package
 			FP.rect.height = SIZE*2 - 4;
 			bitmap.fillRect(FP.rect, gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
 			
-			graphic = new Stamp(bitmap);
+			graphic = new Image(bitmap);
 			graphic.x = -SIZE;
 			graphic.y = -SIZE;
 			
@@ -151,6 +153,12 @@ package
 				change_direction()
 			}
 			
+
+			if (age > 70 && (Math.random() * 7) == 1)
+			{
+				die();
+			}
+			
 			//Movement
 			var new_x:Number = x + (direction_x * SPEED);
 			var new_y:Number = y + (direction_y * SPEED);
@@ -159,6 +167,18 @@ package
 			
 			x = new_x;
 			y = new_y;
+		}
+		
+		public function die():void 
+		{
+			if (marriage)
+			{
+				marriage.end_marriage();
+				bitmap.fillRect(FP.rect, DEAD);
+				type = "Corpse";
+				var image:Image = graphic as Image;
+				image.alpha = 0.4;
+			}
 		}
 	}
 }
