@@ -42,6 +42,7 @@ package
 			gender = Math.random() < 0.5 ? MALE : FEMALE;
 			x = Math.random() * 400+20;
 			y = Math.random() * 400+20;
+			
 			setHitbox(SIZE * 2, SIZE * 2,SIZE,SIZE);
 			type = "Person";
 			
@@ -106,6 +107,7 @@ package
 				return false;
 			}
 			return true;
+
 		}
 		
 		public override function update (): void
@@ -123,12 +125,8 @@ package
 			var new_x:Number = x + (direction_x * SPEED);
 			var new_y:Number = y + (direction_y * SPEED);
 			
-			//Collision
-			if(avoid_walls(new_x, new_y)==true)
-			{
-				x = new_x;
-				y = new_y;
-			}
+			x = new_x;
+			y = new_y;
 		}
 	}
 }
