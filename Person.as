@@ -20,10 +20,15 @@ package
 		
 		public function Person()
 		{
+			gender = Math.random() < 0.5 ? MALE : FEMALE;
+			x = Math.random() * 400;
+			y = Math.random() * 400;
+			setHitbox(0, 0, 30, 30);
 			
+			graphic = Image.createRect(30, 30, gender == MALE ? 0x0000FF : 0xFF00FF);
 		}
 		
-		public override function update ()
+		public override function update (): void
 		{
 			
 		}

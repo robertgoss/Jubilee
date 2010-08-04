@@ -9,7 +9,10 @@ package
 	{
 		public function Level()
 		{
-			
+			add(new Person());
+			add(new Person());
+			add(new Person());
+			add(new Person());
 		}
 		
 	}
