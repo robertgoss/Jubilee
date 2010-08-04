@@ -40,7 +40,7 @@ package
 		
 		public function Level()
 		{
-			add(new Entity(-80, -60, new Stamp(bgGfx)));
+			addGraphic(new Stamp(bgGfx), 0, -80, -60);
 			
 			yearText = new Text("1994", 4, 4);
 			yearText.scrollX = yearText.scrollY = 0;
@@ -49,9 +49,9 @@ package
 			pietySprite.scrollX = pietySprite.scrollY = 0;
 			pietySprite.scale = 0.4;
 			
-			add(new Entity(570, 440, pietySprite));
+			addGraphic(pietySprite, -5, 570, 440);
 			
-			add(new Entity(0, 0, yearText));
+			addGraphic(yearText);
 			
 			var a: Person = new Person();
 			var b: Person = new Person();
