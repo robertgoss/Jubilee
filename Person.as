@@ -59,6 +59,8 @@ package
 			
 			change_direction_time = 2;
 			change_direction()
+			
+			layer = -2;
 		}
 		
 		public function select():void
@@ -82,7 +84,7 @@ package
 				var other:Person = marriage.other(this);
 				var diff_x:Number = other.x-x;
 				var diff_y:Number = other.y-y;
-				var diff_length:Number = Math.sqrt(diff_x * diff_x + diff_y * diff_y)*2;
+				var diff_length:Number = Math.sqrt(diff_x * diff_x + diff_y * diff_y)*0.9;
 				diff_x = diff_x / diff_length;
 				diff_y = diff_y / diff_length;
 				direction_x = direction_x + diff_x;

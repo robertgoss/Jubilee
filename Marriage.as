@@ -95,7 +95,7 @@ package
 		
 		public override function render (): void
 		{
-			Draw.linePlus(husband.x, husband.y, wife.x, wife.y, 0xFF0000);
+			Draw.linePlus(husband.x, husband.y, wife.x, wife.y, 0x800000, 1.0, 3.0);
 			
 			var midx: Number = (husband.x + wife.x) * 0.5;
 			var midy: Number = (husband.y + wife.y) * 0.5;
