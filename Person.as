@@ -10,6 +10,12 @@ package
 		public static const MALE: String = "male";
 		public static const FEMALE: String = "female";
 		
+		public static const MALE_SELECTED:uint = 0x8080FF;
+		public static const FEMALE_SELECTED:uint = 0xFF80FF;
+		
+		public static const MALE_UNSELECTED:uint = 0x0000FF;
+		public static const FEMALE_UNSELECTED:uint = 0xFF00FF;
+		
 		public const SPEED:Number = 0.4;
 		public const SIZE:Number = 15;
 		
@@ -34,7 +40,7 @@ package
 			y = Math.random() * 400+20;
 			setHitbox(-15, -15, 30, 30);
 			
-			graphic = Image.createRect(2*SIZE, 2*SIZE, gender == MALE ? 0x0000FF : 0xFF00FF);
+			graphic = Image.createRect(2*SIZE, 2*SIZE, gender == MALE ? MALE_UNSELECTED : FEMALE_UNSELECTED);
 			graphic.x = -SIZE;
 			graphic.y = -SIZE;
 			

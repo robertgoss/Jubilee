@@ -26,5 +26,7 @@ package
 			add(marriage);
 		}
 		
+		public 
+		
 	}
 }
