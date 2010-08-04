@@ -80,7 +80,6 @@ package
 			if (marriage)
 			{
 				var other:Person = marriage.other(this);
-				trace(typeof(x-other.x))
 				var diff_x:Number = other.x-x;
 				var diff_y:Number = other.y-y;
 				var diff_length:Number = Math.sqrt(diff_x * diff_x + diff_y * diff_y)*2;

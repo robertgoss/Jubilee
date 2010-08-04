@@ -109,8 +109,6 @@ package
 					hover = null;
 				}
 			}
-<<<<<<< HEAD
-=======
 			
 			time += 0.002;
 			
@@ -137,7 +135,6 @@ package
 				
 				add(person);
 			}
->>>>>>> 25666a435cd48e857e5628da47eb9f830cb2f3a9
 		}
 		
 		public override function render():void
