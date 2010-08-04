@@ -66,12 +66,12 @@ package
 		
 		public function avoid_walls(new_x:Number,new_y:Number):Boolean
 		{
-			if (new_x<SIZE || new_x>(800-SIZE))
+			if (new_x<SIZE || new_x>(640-SIZE))
 			{
 				change_direction()
 				return false;
 			}
-			if (new_y<SIZE || new_y>(600-SIZE))
+			if (new_y<SIZE || new_y>(480-SIZE))
 			{
 				change_direction()
 				return false;
