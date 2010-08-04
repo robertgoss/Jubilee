@@ -76,7 +76,7 @@ package
 		public override function update (): void
 		{
 			//Timing
-			age += 0.01;
+			age += 0.002;
 			change_direction_time -= 0.01;
 			if (change_direction_time < 0)
 			{

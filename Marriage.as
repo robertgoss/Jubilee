@@ -29,17 +29,17 @@ package
 			wife.marriage = this;
 			
 			layer = -1;
+			
+			nextBaby = 2 + Math.random() * 2;
 		}
-		
-		public var shoot:Sfx = new Sfx(SHOOT);
 		
 		public override function update (): void
 		{
-			age += 0.01;
-			nextBaby -= 0.01;
+			age += 0.002;
+			nextBaby -= 0.002;
 			
 			if (nextBaby < 0) {
-				nextBaby = 1.5;
+				nextBaby = 1.0 + Math.random() * 1.5;
 				
 				var child: Person = new Person();
 				

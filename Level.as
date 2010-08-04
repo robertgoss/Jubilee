@@ -43,7 +43,7 @@ package
 		{
 			super.update();
 			
-			time += 0.001;
+			time += 0.002;
 			
 			yearText.text = "" + int(1994 + time);
 		}
