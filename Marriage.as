@@ -11,6 +11,36 @@ package
 		public var wife: Person = null;
 		public var children: Vector.<Person> = new Vector.<Person>();
 		
+		public var age: Number = 0;
+		
+		public var nextBaby: Number = 4;
+		
+		public function Marriage (a: Person, b: Person)
+		{
+			husband = a;
+			wife = b;
+		}
+		
+		public override function update (): void
+		{
+			age += 0.01;
+			nextBaby -= 0.01;
+			
+			if (nextBaby < 0) {
+				nextBaby = 1.5;
+				
+				var child: Person = new Person();
+				
+				child.x = wife.x + Math.random() * 16 - 8;
+				child.y = wife.y + Math.random() * 16 - 8;
+				
+				children.push(child);
+				
+				FP.world.add(child);
+			}
+			
+		}
+		
 		public override function render (): void
 		{
 			Draw.linePlus(husband.x, husband.y, wife.x, wife.y, 0xFF0000);
