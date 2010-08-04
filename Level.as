@@ -28,6 +28,9 @@ package
 		public var offset_x:Number = 0;
 		public var offset_y:Number = 0;
 		
+		public static const PAN_AREA: Number = 30;
+		public static const MAX_PAN_SPEED: Number = 2;
+		
 		public var piety:Number = 0.5;
 		
 		public function Level()
@@ -35,6 +38,7 @@ package
 			add(new Entity(-80, -60, new Stamp(bgGfx)));
 			
 			yearText = new Text("1994", 4, 4);
+			yearText.scrollX = yearText.scrollY = 0;
 			
 			add(new Entity(0, 0, yearText));
 			
@@ -122,24 +126,32 @@ package
 					hover = null;
 				}
 			}
+			
+			var dx: Number, dy: Number;
+			
 			//Panning
-			if (Input.mouseX < 10 && FP.camera.x>-80)
+			if (Input.mouseX < PAN_AREA)
 			{
-				FP.camera.x = FP.camera.x-1;
+				dx = -(1.0 - Input.mouseX / PAN_AREA) * MAX_PAN_SPEED;
+				FP.camera.x = Math.max(-80, FP.camera.x + dx);
 			}
 			
-			if (Input.mouseX > 630 && FP.camera.x<80)
+			if (Input.mouseX > 640 - PAN_AREA)
 			{
-				FP.camera.x = FP.camera.x+1;
-			}
-			if (Input.mouseY < 10  && FP.camera.y>-60)
-			{
-				FP.camera.y = FP.camera.y-1;
+				dx = (1.0 - (640 - Input.mouseX) / PAN_AREA) * MAX_PAN_SPEED;
+				FP.camera.x = Math.min(80, FP.camera.x + dx);
 			}
 			
-			if (Input.mouseY > 470 && FP.camera.y<60)
+			if (Input.mouseY < PAN_AREA)
 			{
-				FP.camera.y = FP.camera.y+1;
+				dy = -(1.0 - Input.mouseY / PAN_AREA) * MAX_PAN_SPEED;
+				FP.camera.y = Math.max(-60, FP.camera.y + dy);
+			}
+			
+			if (Input.mouseY > 480 - PAN_AREA)
+			{
+				dy = (1.0 - (480 - Input.mouseY) / PAN_AREA) * MAX_PAN_SPEED;
+				FP.camera.y = Math.min(60, FP.camera.y + dy);
 			}
 			
 			time += 0.002;

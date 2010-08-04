@@ -67,6 +67,8 @@ package
 			
 			change_direction_time = 2;
 			change_direction()
+			
+			layer = -2;
 		}
 		
 		public function select():void

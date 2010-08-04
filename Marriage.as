@@ -23,6 +23,10 @@ package
 		private const POP:Class;
 		public var pop:Sfx = new Sfx(POP);
 		
+		[Embed(source = 'assets/wedding.mp3')] 
+		private const WEDDING:Class;
+		public var wedding:Sfx = new Sfx(WEDDING);
+		
 		public function Marriage (a: Person, b: Person)
 		{
 			if (a.gender == "male")
@@ -48,6 +52,8 @@ package
 			layer = -1;
 			
 			nextBaby = 2 + Math.random() * 2;
+			
+			wedding.play();
 		}
 		
 		public override function update (): void
@@ -61,7 +67,12 @@ package
 			nextBaby -= 0.002;
 			
 			if (nextBaby < 0) {
-				nextBaby = 1.0 + Math.random() * 1.5;
+				if (Math.random() < 0.5) {
+					nextBaby = 1.0 + Math.random() * 1.5;
+				} else {
+					nextBaby = 100000;
+				}
+				
 				if (sameSex == false)
 				{
 					var child: Person = new Person();
@@ -93,7 +104,7 @@ package
 			{
 				return
 			}
-			Draw.linePlus(husband.x, husband.y, wife.x, wife.y, 0xFF0000);
+			Draw.linePlus(husband.x, husband.y, wife.x, wife.y, 0x800000, 1.0, 3.0);
 			
 			var midx: Number = (husband.x + wife.x) * 0.5;
 			var midy: Number = (husband.y + wife.y) * 0.5;
