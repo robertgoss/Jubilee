@@ -18,8 +18,8 @@ package
 		public static const MALE_UNSELECTED:uint = 0x0000FF;
 		public static const FEMALE_UNSELECTED:uint = 0xFF00FF;
 		
-		public const SPEED:Number = 0.4;
-		public const SIZE:Number = 15;
+		public const SPEED:Number = 0.2;
+		public const SIZE:Number = 10;
 		
 		public var marriage: Marriage = null;
 		
@@ -73,13 +73,40 @@ package
 		
 		public function change_direction():void
 		{
-			do {
-				var angle:Number = Math.random() * 2 * Math.PI;
-				direction_x = Math.cos(angle);
-				direction_y = Math.sin(angle);
-				var newX: Number = x + direction_x * (50 + SIZE);
-				var newY: Number = y + direction_y * (50 + SIZE);
-			} while (newX < 0 || newX > 640 || newY < 0 || newY > 480);
+			var angle:Number = Math.random() * 2 * Math.PI;
+			direction_x = Math.cos(angle);
+			direction_y = Math.sin(angle);
+			
+			if (marriage)
+			{
+				var other:Person = marriage.other(this);
+				var diff_x:Number = other.x-x;
+				var diff_y:Number = other.y-y;
+				var diff_length:Number = Math.sqrt(diff_x * diff_x + diff_y * diff_y)*2;
+				diff_x = diff_x / diff_length;
+				diff_y = diff_y / diff_length;
+				direction_x = direction_x + diff_x;
+				direction_y = direction_y + diff_y;
+				var direction_length:Number = Math.sqrt(direction_x * direction_x + direction_y * direction_y);
+				direction_x = direction_x / direction_length;
+				direction_y = direction_y / direction_length;
+			}
+		}
+		
+		public function avoid_walls(new_x:Number,new_y:Number):Boolean
+		{
+			if (new_x<SIZE || new_x>(640-SIZE))
+			{
+				change_direction()
+				return false;
+			}
+			if (new_y<SIZE || new_y>(480-SIZE))
+			{
+				change_direction()
+				return false;
+			}
+			return true;
+
 		}
 		
 		public override function update (): void

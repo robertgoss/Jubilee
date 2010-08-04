@@ -47,6 +47,11 @@ package
 		
 		public function marry(a:Person, b:Person):void
 		{
+			if (a.marriage || b.marriage)
+			{
+				//They are already married bad karma
+				return;
+			}
 			var marriage:Marriage = new Marriage(a, b);
 			add(marriage);
 		}
@@ -55,6 +60,15 @@ package
 		{
 			super.update();
 			
+			aweful_control_code();
+			
+			time += 0.002;
+			
+			yearText.text = "" + int(1994 + time);
+		}
+		
+		public function aweful_control_code():void
+		{
 			if (Input.mousePressed)
 			{
 				selected = collidePoint("Person", Input.mouseX, Input.mouseY) as Person;
@@ -88,8 +102,14 @@ package
 				if (other && selected)
 				{
 					marry(other, selected);
+				}
+				if (selected)
+				{
 					selected.unselect();
 					selected = null;
+				}
+				if (hover)
+				{
 					hover.unselect();
 					hover = null;
 				}
