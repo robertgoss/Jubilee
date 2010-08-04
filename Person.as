@@ -40,7 +40,7 @@ package
 			gender = Math.random() < 0.5 ? MALE : FEMALE;
 			x = Math.random() * 400+20;
 			y = Math.random() * 400+20;
-			setHitbox(-SIZE, -SIZE, SIZE*2, SIZE*2);
+			setHitbox(SIZE, SIZE, SIZE*2, SIZE*2);
 			
 			var bitmap: BitmapData = new BitmapData(SIZE*2, SIZE*2, false, 0xFF000000);
 			FP.rect.x = 2;
@@ -59,24 +59,13 @@ package
 		
 		public function change_direction():void
 		{
-			var angle:Number = Math.random() * 2 * Math.PI;
-			direction_x = Math.cos(angle);
-			direction_y = Math.sin(angle);
-		}
-		
-		public function avoid_walls(new_x:Number,new_y:Number):Boolean
-		{
-			if (new_x<SIZE || new_x>(640-SIZE))
-			{
-				change_direction()
-				return false;
-			}
-			if (new_y<SIZE || new_y>(480-SIZE))
-			{
-				change_direction()
-				return false;
-			}
-			return true;
+			do {
+				var angle:Number = Math.random() * 2 * Math.PI;
+				direction_x = Math.cos(angle);
+				direction_y = Math.sin(angle);
+				var newX: Number = x + direction_x * (50 + SIZE);
+				var newY: Number = y + direction_y * (50 + SIZE);
+			} while (newX < 0 || newX > 640 || newY < 0 || newY > 480);
 		}
 		
 		public override function update (): void
@@ -94,12 +83,8 @@ package
 			var new_x:Number = x + (direction_x * SPEED);
 			var new_y:Number = y + (direction_y * SPEED);
 			
-			//Collision
-			if(avoid_walls(new_x, new_y)==true)
-			{
-				x = new_x;
-				y = new_y;
-			}
+			x = new_x;
+			y = new_y;
 		}
 	}
 }
