@@ -35,7 +35,8 @@ package
 		public static const MAX_PAN_SPEED: Number = 2;
 		
 		public var piety:Number = 0.5;
-		public var pietySprite:Image;
+		public var pietySprite:Image; 
+		
 		
 		public function Level()
 		{
